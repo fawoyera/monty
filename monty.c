@@ -74,7 +74,7 @@ int main(int argc, char **argv)
 			if (argument == -1)
 			{
 				
-				fprintf(stderr, "L<%d>: usage: %s integer\n", line_number, opcode);
+				fprintf(stderr, "L%d: usage: %s integer\n", line_number, opcode);
 				free(line);
 				free(line_cpy);
 				exit(EXIT_FAILURE);
