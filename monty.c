@@ -19,7 +19,7 @@ int main(int argc, char **argv)
 	int argument;
 	size_t n = 0;
 	unsigned int line_number = 0;
-	stack_t *stack = NULL;
+	stack_t *stack = NULL, *temp;
 	void (*inst)(stack_t **, unsigned int);
 
 	top = NULL;
@@ -96,6 +96,12 @@ int main(int argc, char **argv)
 
 		line = NULL;
 		n = 0;
+	}
+	while (top)
+	{
+		temp = top->prev;
+		free(top);
+		top = temp;
 	}
 
 	fclose(file);
