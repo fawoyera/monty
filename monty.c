@@ -16,7 +16,7 @@ int main(int argc, char **argv)
 {
 	FILE *file;
 	char *line = NULL, *line_cpy, *opcode, *arg;
-	int argument;
+	long int *argument;
 	size_t n = 0;
 	unsigned int line_number = 0;
 	stack_t *stack = NULL, *temp;
@@ -70,8 +70,8 @@ int main(int argc, char **argv)
 				free(line_cpy);
 				exit(EXIT_FAILURE);
 			}
-			argument = (int)str_to_num(arg);
-			if (argument == -1)
+			argument = str_to_num(arg);
+			if (argument == NULL)
 			{
 				
 				fprintf(stderr, "L%d: usage: %s integer\n", line_number, opcode);
@@ -87,7 +87,7 @@ int main(int argc, char **argv)
 				free(line_cpy);
 				exit(EXIT_FAILURE);
 			}
-			stack->n = argument;
+			stack->n = (int)*argument;
 		}
 		
 		inst(&stack, line_number);

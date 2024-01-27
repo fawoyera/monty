@@ -5,7 +5,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-long int str_to_num(char *s);
+long int sum;
+long int *str_to_num(char *s);
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)

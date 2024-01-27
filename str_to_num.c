@@ -7,23 +7,34 @@ int _power(int, int);
  * @s: string input
  * Return: int
  */
-long int str_to_num(char *s)
+long int *str_to_num(char *s)
 {
-	int i = 0, j, n = 0;
-	long int m, sum = 0;
+	int i = 0, j, n = 0, flag_neg = 0;
+	long int m;
 
+	sum = 0;
+
+	if (*s == '-' || *s == '+')
+	{
+		if (*s == '-')
+			flag_neg = 1;
+		s++;
+	}
 	while (*(s + i) != '\0')
 		i++;
 	for (j = i - 1; j >= 0; j--)
 	{
 		if ((int)*(s + j) < (int)'0' || (int)*(s + j) > (int)'9')
-			return (-1);
+			return (NULL);
 		m = ((int) *(s + j) - (int) '0');
 		m = m * _power(10, n);
 		sum = sum + m;
 		n++;
 	}
-	return (sum);
+	if (flag_neg == 1)
+		sum *= -1;
+
+	return (&sum);
 }
 
 /**
