@@ -41,18 +41,20 @@ int main(int argc, char **argv)
 	{
 		line_number++;
 		line_cpy = strdup(line);
-		opcode = strtok(line_cpy, " \n");
+		opcode = strtok(line_cpy, " \n\t");
 		if (opcode == NULL)
 		{
 			free(line);
 			free(line_cpy);
+			line = NULL;
+			n = 0;
 			continue;
 		}
 
 		inst = get_instruction(opcode);
 		if (inst == NULL)
 		{
-			fprintf(stderr, "L<%i>: unknown instruction <%s>\n", line_number, opcode);
+			fprintf(stderr, "L%i: unknown instruction %s\n", line_number, opcode);
 			free(line);
 			free(line_cpy);
 			exit(EXIT_FAILURE);
@@ -60,10 +62,10 @@ int main(int argc, char **argv)
 
 		if (strcmp(opcode, "push") == 0)
 		{
-			arg = strtok(NULL, " \n");
+			arg = strtok(NULL, " \n\t");
 			if (arg == NULL)
 			{
-				fprintf(stderr, "L<%d>: usage: %s integer\n", line_number, opcode);
+				fprintf(stderr, "L%d: usage: %s integer\n", line_number, opcode);
 				free(line);
 				free(line_cpy);
 				exit(EXIT_FAILURE);
