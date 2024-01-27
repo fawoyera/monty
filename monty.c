@@ -97,6 +97,8 @@ int main(int argc, char **argv)
 		line = NULL;
 		n = 0;
 	}
+	free(line);
+
 	while (top)
 	{
 		temp = top->prev;
