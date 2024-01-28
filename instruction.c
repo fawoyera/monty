@@ -43,3 +43,26 @@ void pall(stack_t **stack, unsigned int line_number)
 		temp = temp->prev;
 	}
 }
+
+/**
+ * pint - print the value at the top of the stack
+ * @stack: the given stack node
+ * @line_number: line number in file
+ *
+ * Return: void
+ */
+void pint(stack_t **stack, unsigned int line_number)
+{
+	stack_t *temp = top;
+	(void)stack;
+
+	if (top == NULL)
+	{
+		fprintf(stderr, "L%d: can't pint, stack empty\n", line_number);
+		free(line);
+		free(line_cpy);
+		exit(EXIT_FAILURE);
+	}
+
+	printf("%d\n", temp->n);
+}

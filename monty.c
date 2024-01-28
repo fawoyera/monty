@@ -55,13 +55,13 @@ int main(int argc, char **argv)
  */
 void get_n_run_inst(FILE *file)
 {
-	char *line = NULL, *line_cpy, *opcode, *arg;
-	size_t n = 0;
+	char *opcode, *arg;
 	long int *argument;
 	unsigned int line_number = 0;
 	stack_t *stack = NULL;
 	void (*inst)(stack_t **, unsigned int);
 
+	line = NULL, n = 0;
 	while (getline(&line, &n, file) != -1)
 	{
 		line_number++;

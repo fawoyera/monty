@@ -5,6 +5,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+char *line;
+char *line_cpy;
+size_t n;
 long int sum;
 long int *str_to_num(char *s);
 
@@ -42,6 +45,7 @@ stack_t *top;
 
 void push(stack_t **, unsigned int);
 void pall(stack_t **, unsigned int);
+void pint(stack_t **, unsigned int);
 void (*get_instruction(char *s))(stack_t **, unsigned int);
 
 #endif /*_MONTY_H_*/
