@@ -41,3 +41,32 @@ void nop(stack_t **stack, unsigned int line_number)
 	(void)stack;
 	(void)line_number;
 }
+
+/**
+ * sub - subtract the top element from the second top 
+ * @stack: the given stack node
+ * @line_number: line number in file
+ *
+ * Return: void
+ */
+void sub(stack_t **stack, unsigned int line_number)
+{
+	stack_t *temp;
+	(void)stack;
+
+	if (!(top && top->prev))
+	{
+		fprintf(stderr, "L%d: can't sub, stack too short\n", line_number);
+		free(line);
+		free(line_cpy);
+		exit(EXIT_FAILURE);
+	}
+
+	top->prev->n -= top->n;
+
+	temp = top->prev;
+	free(top);
+	top = temp;
+	if (top != NULL)
+		top->next = NULL;
+}
