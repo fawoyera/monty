@@ -16,6 +16,9 @@ void (*get_instruction(char *s))(stack_t **, unsigned int)
 		{"add", add},
 		{"nop", nop},
 		{"sub", sub},
+		{"div", _div},
+		{"mul", mul},
+		{"mod", mod},
 		{NULL, NULL}
 	};
 	int i;
