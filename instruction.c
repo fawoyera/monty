@@ -1,8 +1,8 @@
 #include "monty.h"
 /**
  * push - add a data to top of stack
- * @stack: the given stack
- * @data: the data to add
+ * @stack: the given stack node
+ * @line_number: line number in file
  *
  * Return: void
  */
@@ -26,6 +26,8 @@ void push(stack_t **stack, unsigned int line_number)
 
 /**
  * pall - print all the values on the stack
+ * @stack: the given stack node
+ * @line_number: line number in file
  *
  * Return: void
  */

@@ -4,6 +4,7 @@
 #include <string.h>
 #include <stddef.h>
 #include "monty.h"
+void get_n_run_inst(FILE *file);
 
 /**
  * main - monty byte code interpreter
@@ -15,12 +16,7 @@
 int main(int argc, char **argv)
 {
 	FILE *file;
-	char *line = NULL, *line_cpy, *opcode, *arg;
-	long int *argument;
-	size_t n = 0;
-	unsigned int line_number = 0;
-	stack_t *stack = NULL, *temp;
-	void (*inst)(stack_t **, unsigned int);
+	stack_t *temp;
 
 	top = NULL;
 
@@ -37,6 +33,35 @@ int main(int argc, char **argv)
 		exit(EXIT_FAILURE);
 	}
 
+	get_n_run_inst(file);
+
+	while (top)
+	{
+		temp = top->prev;
+		free(top);
+		top = temp;
+	}
+
+	fclose(file);
+
+	return (0);
+}
+
+/**
+ * get_n_run_inst - reads the instruction from file and execute
+ * @file: file stream to read from
+ *
+ * Return: void
+ */
+void get_n_run_inst(FILE *file)
+{
+	char *line = NULL, *line_cpy, *opcode, *arg;
+	size_t n = 0;
+	long int *argument;
+	unsigned int line_number = 0;
+	stack_t *stack = NULL;
+	void (*inst)(stack_t **, unsigned int);
+
 	while (getline(&line, &n, file) != -1)
 	{
 		line_number++;
@@ -46,11 +71,9 @@ int main(int argc, char **argv)
 		{
 			free(line);
 			free(line_cpy);
-			line = NULL;
-			n = 0;
+			line = NULL, n = 0;
 			continue;
 		}
-
 		inst = get_instruction(opcode);
 		if (inst == NULL)
 		{
@@ -59,7 +82,6 @@ int main(int argc, char **argv)
 			free(line_cpy);
 			exit(EXIT_FAILURE);
 		}
-
 		if (strcmp(opcode, "push") == 0)
 		{
 			arg = strtok(NULL, " \n\t");
@@ -73,7 +95,6 @@ int main(int argc, char **argv)
 			argument = str_to_num(arg);
 			if (argument == NULL)
 			{
-				
 				fprintf(stderr, "L%d: usage: %s integer\n", line_number, opcode);
 				free(line);
 				free(line_cpy);
@@ -89,24 +110,10 @@ int main(int argc, char **argv)
 			}
 			stack->n = (int)*argument;
 		}
-		
 		inst(&stack, line_number);
 		free(line);
 		free(line_cpy);
-
-		line = NULL;
-		n = 0;
+		line = NULL, n = 0;
 	}
 	free(line);
-
-	while (top)
-	{
-		temp = top->prev;
-		free(top);
-		top = temp;
-	}
-
-	fclose(file);
-
-	return (0);
 }
