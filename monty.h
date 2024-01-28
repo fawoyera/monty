@@ -47,6 +47,7 @@ void push(stack_t **, unsigned int);
 void pall(stack_t **, unsigned int);
 void pint(stack_t **, unsigned int);
 void pop(stack_t **, unsigned int);
+void swap(stack_t **, unsigned int);
 void (*get_instruction(char *s))(stack_t **, unsigned int);
 
 #endif /*_MONTY_H_*/
