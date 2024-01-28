@@ -54,6 +54,10 @@ void sub(stack_t **, unsigned int);
 void _div(stack_t **, unsigned int);
 void mul(stack_t **, unsigned int);
 void mod(stack_t **, unsigned int);
+void pchar(stack_t **, unsigned int);
+void pstr(stack_t **, unsigned int);
+void rotl(stack_t **, unsigned int);
+void rotr(stack_t **, unsigned int);
 void (*get_instruction(char *s))(stack_t **, unsigned int);
 
 #endif /*_MONTY_H_*/

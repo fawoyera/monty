@@ -1,173 +1,119 @@
 #include "monty.h"
 
 /**
- * add - add the top two elements of the stack
+ * pchar - print the char at the top of the stack
  * @stack: the given stack node
  * @line_number: line number in file
  *
  * Return: void
  */
-void add(stack_t **stack, unsigned int line_number)
+void pchar(stack_t **stack, unsigned int line_number)
 {
-	stack_t *temp;
+	stack_t *temp = top;
 	(void)stack;
 
-	if (!(top && top->prev))
+	if (top == NULL)
 	{
-		fprintf(stderr, "L%d: can't add, stack too short\n", line_number);
+		fprintf(stderr, "L%d: can't pchar, stack empty\n", line_number);
+		free(line);
+		free(line_cpy);
+		exit(EXIT_FAILURE);
+	}
+	if (temp->n < 0 || temp->n > 127)
+	{
+		fprintf(stderr, "L%d: can't pchar, value out of range\n", line_number);
 		free(line);
 		free(line_cpy);
 		exit(EXIT_FAILURE);
 	}
 
-	top->prev->n += top->n;
-
-	temp = top->prev;
-	free(top);
-	top = temp;
-	if (top != NULL)
-		top->next = NULL;
+	printf("%c\n", temp->n);
 }
 
 /**
- * nop - do nothing
+ * pstr - print the string starting at the top of the stack
  * @stack: the given stack node
  * @line_number: line number in file
  *
  * Return: void
  */
-void nop(stack_t **stack, unsigned int line_number)
+void pstr(stack_t **stack, unsigned int line_number)
 {
+	stack_t *temp = top;
+	(void)line_number;
+	(void)stack;
+
+	if (top == NULL)
+	{
+		printf("\n");
+		return;
+	}
+
+	while (temp)
+	{
+		if (temp->n == 0 || temp->n < 0 || temp->n > 127)
+			break;
+		printf("%c", temp->n);
+		temp = temp->prev;
+	}
+	printf("\n");
+}
+
+/**
+ * rotl - rotate the stack to the top
+ * @stack: the given stack node
+ * @line_number: line number in file
+ *
+ * Return: void
+ */
+void rotl(stack_t **stack, unsigned int line_number)
+{
+	stack_t *last, *temp;
 	(void)stack;
 	(void)line_number;
+
+	if (top == NULL || top->prev == NULL)
+		return;
+
+	last = top;
+	top = top->prev;
+	top->next = NULL;
+
+	temp = top;
+	while (temp && temp->prev)
+	{
+		temp = temp->prev;
+	}
+	temp->prev = last;
+	last->next = temp;
+	last->prev = NULL;
 }
 
 /**
- * sub - subtract the top element from the second top 
+ * rotr - rotate the stack to the bottom
  * @stack: the given stack node
  * @line_number: line number in file
  *
  * Return: void
  */
-void sub(stack_t **stack, unsigned int line_number)
+void rotr(stack_t **stack, unsigned int line_number)
 {
-	stack_t *temp;
+	stack_t *first, *last, *temp;
 	(void)stack;
+	(void)line_number;
 
-	if (!(top && top->prev))
+	if (top == NULL || top->prev == NULL)
+		return;
+
+	temp = top;
+	while (temp && temp->prev)
 	{
-		fprintf(stderr, "L%d: can't sub, stack too short\n", line_number);
-		free(line);
-		free(line_cpy);
-		exit(EXIT_FAILURE);
+		last = temp;
+		temp = temp->prev;
 	}
-
-	top->prev->n -= top->n;
-
-	temp = top->prev;
-	free(top);
-	top = temp;
-	if (top != NULL)
-		top->next = NULL;
-}
-
-/**
- * _div - divide the second top element by the top 
- * @stack: the given stack node
- * @line_number: line number in file
- *
- * Return: void
- */
-void _div(stack_t **stack, unsigned int line_number)
-{
-	stack_t *temp;
-	(void)stack;
-
-	if (!(top && top->prev))
-	{
-		fprintf(stderr, "L%d: can't div, stack too short\n", line_number);
-		free(line);
-		free(line_cpy);
-		exit(EXIT_FAILURE);
-	}
-	if (top->n == 0)
-	{
-		fprintf(stderr, "L%d: division by zero\n", line_number);
-		free(line);
-		free(line_cpy);
-		exit(EXIT_FAILURE);
-	}
-
-	top->prev->n /= top->n;
-
-	temp = top->prev;
-	free(top);
-	top = temp;
-	if (top != NULL)
-		top->next = NULL;
-}
-
-/**
- * mul - multiply the second top element with the top 
- * @stack: the given stack node
- * @line_number: line number in file
- *
- * Return: void
- */
-void mul(stack_t **stack, unsigned int line_number)
-{
-	stack_t *temp;
-	(void)stack;
-
-	if (!(top && top->prev))
-	{
-		fprintf(stderr, "L%d: can't mul, stack too short\n", line_number);
-		free(line);
-		free(line_cpy);
-		exit(EXIT_FAILURE);
-	}
-
-	top->prev->n *= top->n;
-
-	temp = top->prev;
-	free(top);
-	top = temp;
-	if (top != NULL)
-		top->next = NULL;
-}
-
-/**
- * mod - remainder when the second top element is divided by top 
- * @stack: the given stack node
- * @line_number: line number in file
- *
- * Return: void
- */
-void mod(stack_t **stack, unsigned int line_number)
-{
-	stack_t *temp;
-	(void)stack;
-
-	if (!(top && top->prev))
-	{
-		fprintf(stderr, "L%d: can't mod, stack too short\n", line_number);
-		free(line);
-		free(line_cpy);
-		exit(EXIT_FAILURE);
-	}
-	if (top->n == 0)
-	{	
-		fprintf(stderr, "L%d: division by zero\n", line_number);
-		free(line);
-		free(line_cpy);
-		exit(EXIT_FAILURE);
-	}
-
-	top->prev->n %= top->n;
-
-	temp = top->prev;
-	free(top);
-	top = temp;
-	if (top != NULL)
-		top->next = NULL;
+	last->prev = NULL;
+	first = temp;
+	first->prev = top;
+	first->next = NULL;
+	top = first;
 }

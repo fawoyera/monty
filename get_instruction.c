@@ -19,6 +19,10 @@ void (*get_instruction(char *s))(stack_t **, unsigned int)
 		{"div", _div},
 		{"mul", mul},
 		{"mod", mod},
+		{"pchar", pchar},
+		{"pstr", pstr},
+		{"rotl", rotl},
+		{"rotr", rotr},
 		{NULL, NULL}
 	};
 	int i;
