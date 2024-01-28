@@ -67,7 +67,7 @@ void get_n_run_inst(FILE *file)
 		line_number++;
 		line_cpy = strdup(line);
 		opcode = strtok(line_cpy, " \n\t");
-		if (opcode == NULL)
+		if (opcode == NULL || opcode[0] == '#')
 		{
 			free(line);
 			free(line_cpy);
