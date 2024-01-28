@@ -21,7 +21,7 @@ void push(stack_t **stack, unsigned int line_number)
 	top->next = node;
 	node->prev = top;
 	node->next = NULL;
-	top = node;	
+	top = node;
 }
 
 /**
