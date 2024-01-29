@@ -42,6 +42,8 @@ typedef struct instruction_s
 } instruction_t;
 
 stack_t *top;
+stack_t *rear;
+int queue_status;
 
 void push(stack_t **, unsigned int);
 void pall(stack_t **, unsigned int);
@@ -58,6 +60,8 @@ void pchar(stack_t **, unsigned int);
 void pstr(stack_t **, unsigned int);
 void rotl(stack_t **, unsigned int);
 void rotr(stack_t **, unsigned int);
+void stack(stack_t **, unsigned int);
+void queue(stack_t **, unsigned int);
 void (*get_instruction(char *s))(stack_t **, unsigned int);
 
 #endif /*_MONTY_H_*/

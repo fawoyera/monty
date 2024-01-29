@@ -18,7 +18,7 @@ int main(int argc, char **argv)
 	FILE *file;
 	stack_t *temp;
 
-	top = NULL;
+	top = NULL, rear = NULL, queue_status = 0;
 
 	if (argc != 2)
 	{

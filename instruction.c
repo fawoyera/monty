@@ -16,12 +16,23 @@ void push(stack_t **stack, unsigned int line_number)
 		top = node;
 		top->prev = NULL;
 		top->next = NULL;
+		rear = node;
 		return;
 	}
-	top->next = node;
-	node->prev = top;
-	node->next = NULL;
-	top = node;
+	if (queue_status == 0)
+	{
+		top->next = node;
+		node->prev = top;
+		node->next = NULL;
+		top = node;
+	}
+	if (queue_status == 1)
+	{
+		rear->prev = node;
+		node->next = rear;
+		node->prev = NULL;
+		rear = node;
+	}
 }
 
 /**

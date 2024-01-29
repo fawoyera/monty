@@ -23,6 +23,8 @@ void (*get_instruction(char *s))(stack_t **, unsigned int)
 		{"pstr", pstr},
 		{"rotl", rotl},
 		{"rotr", rotr},
+		{"stack", stack},
+		{"queue", queue},
 		{NULL, NULL}
 	};
 	int i;

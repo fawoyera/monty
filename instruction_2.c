@@ -117,3 +117,34 @@ void rotr(stack_t **stack, unsigned int line_number)
 	first->next = NULL;
 	top = first;
 }
+
+/**
+ * stack - set the format to stack (LIFO)
+ * @stack: the given stack node
+ * @line_number: line number in file
+ *
+ * Return: void
+ */
+void stack(stack_t **stack, unsigned int line_number)
+{
+	(void)stack;
+	(void)line_number;
+
+	queue_status = 0;
+}
+
+/**
+ * queue - set the format to queue (FIFO)
+ * @stack: the given stack node
+ * @line_number: line number in file
+ *
+ * Return: void
+ */
+void queue(stack_t **stack, unsigned int line_number)
+{
+	(void)stack;
+	(void)line_number;
+
+	queue_status = 1;
+}
+
